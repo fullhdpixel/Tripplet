@@ -14,7 +14,11 @@ import {MONGODB_URI, SESSION_SECRET} from './util/secrets'
 const MongoStore = mongo(session)
 
 // Controllers (route handlers)
-import * as searchController from './controllers/search'
+import * as unstructuredController from './controllers/unstructured'
+import * as structuredController from './controllers/structured'
+import * as profileController from './controllers/profile'
+import validateMiddleware from './util/ValidateMiddleware'
+import { unstructuredValidationRules, structuredValidationRules } from './util/ValidateQuery'
 
 // Create Express server
 const app = express()
@@ -39,6 +43,10 @@ mongoose
 // Express configuration
 
 app.set('port', process.env.PORT || 3000)
+
+app.set('views', path.join(__dirname, '../views'))
+app.set('view engine', 'pug')
+
 app.use(express.static('public'))
 app.use(compression())
 app.use(bodyParser.json())
@@ -61,9 +69,21 @@ app.options('*', cors())
 app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}))
 
 /**
- * App routes.
+ * View routes.
  */
-app.get('/createprofiles', searchController.createProfiles)
-app.post('/matches', searchController.retrieveMatches)
+
+app.get('/', unstructuredController.unstructured)
+app.get('/structured', structuredController.structured)
+
+// app.get('/signup', userController.getSignup)
+
+/**
+ * API routes.
+ */
+app.get('/createprofiles', profileController.createProfiles)
+app.post('/search', unstructuredValidationRules(), validateMiddleware, profileController.searchProfiles)
+
+app.post('/find', structuredValidationRules(), validateMiddleware, profileController.findProfiles)
+app.delete('/profile', profileController.deleteProfiles)
 
 export default app

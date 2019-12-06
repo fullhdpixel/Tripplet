@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 Dating Profile Retrieval Structured
+  hr
+  form.form-horizontal(method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row.justify-content-md-center
+    input.form-control(type='text', name='name', id='name', placeholder='What are you looking for in a partner?', autofocus=true)
+    br
+    button.btn.btn-primary(type='submit')
+      | Search Now

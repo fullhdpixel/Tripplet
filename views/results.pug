@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  .page-header
+    h3 Results
+    hr
+    ul
+      each val in result
+        li= val.age

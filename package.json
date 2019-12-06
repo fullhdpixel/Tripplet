@@ -26,13 +26,15 @@
     "serve-debug": "nodemon --inspect dist/server.js",
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\"",
     "pm2": "PORT=4000 pm2 start dist/server.js",
-    "startElatic": "bin/elasticsearch"
+    "startElastic": "../elasticsearch-7.4.2/bin/elasticsearch"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.4.0",
     "@types/cors": "^2.8.6",
     "@types/csv-parse": "^1.2.2",
     "@types/elasticsearch": "^5.0.36",
+    "@types/react": "^16.9.13",
+    "@types/react-dom": "^16.9.4",
     "async": "^3.1.0",
     "bcrypt-nodejs": "^0.0.3",
     "bluebird": "^3.5.5",
@@ -58,6 +60,8 @@
     "passport-facebook": "^3.0.0",
     "passport-local": "^1.0.0",
     "pug": "^2.0.4",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "winston": "^3.2.1"
