@@ -1,15 +1,12 @@
-nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
+nav.navbar.navbar-light.bg-light.fixed-top.justify-content-between.navbar-expand
   .container
     a.navbar-brand(href='/')
       i.fa.fa-cube
       | Tripple T
-    button.navbar-toggler(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-      span.navbar-toggler-icon
 
-    .collapse.navbar-collapse
-      .dropdown-divider
-      ul.nav.navbar-nav.mr-auto
-        li.nav-item(class=(title === 'Unstructured') ? 'active' : undefined)
-          a.nav-link(href='/') Unstructured
-        li.nav-item(class=(title === 'Structured Query') ? 'active' : undefined)
-          a.nav-link(href='/structured') Structured
+  div.collapse.navbar-collapse
+    ul.navbar-nav.mr-auto
+      li.nav-item(class=(title === 'Unstructured') ? 'active' : undefined)
+        a.nav-link(href='/') Unstructured
+      li.nav-item(class=(title === 'Structured') ? 'active' : undefined)
+        a.nav-link(href='/structured') Structured

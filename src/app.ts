@@ -14,8 +14,7 @@ import {MONGODB_URI, SESSION_SECRET} from './util/secrets'
 const MongoStore = mongo(session)
 
 // Controllers (route handlers)
-import * as unstructuredController from './controllers/unstructured'
-import * as structuredController from './controllers/structured'
+import * as uiController from './controllers/ui'
 import * as profileController from './controllers/profile'
 import validateMiddleware from './util/ValidateMiddleware'
 import { unstructuredValidationRules, structuredValidationRules } from './util/ValidateQuery'
@@ -72,8 +71,9 @@ app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}))
  * View routes.
  */
 
-app.get('/', unstructuredController.unstructured)
-app.get('/structured', structuredController.structured)
+app.get('/', uiController.unstructured)
+app.get('/structured', uiController.structured)
+app.get('/profile/:id', uiController.getProfileDetail)
 
 // app.get('/signup', userController.getSignup)
 
@@ -84,6 +84,6 @@ app.get('/createprofiles', profileController.createProfiles)
 app.post('/search', unstructuredValidationRules(), validateMiddleware, profileController.searchProfiles)
 
 app.post('/find', structuredValidationRules(), validateMiddleware, profileController.findProfiles)
-app.delete('/profile', profileController.deleteProfiles)
+app.delete('/profiles', profileController.deleteProfiles)
 
 export default app

@@ -2,9 +2,12 @@ import fs from 'fs'
 import {Request, Response} from 'express'
 // import { Client } from '@elastic/elasticsearch'
 import parse from 'csv-parse'
+// @ts-ignore all
+// eslint-disable-next-line @typescript-eslint/camelcase
+import random_name from 'node-random-name'
 
 import {Profile, ProfileDocument} from '../models/Profile'
-import {cleanDescription, cleanQuery} from '../util/dataCleaning'
+import {cleanDescription, cleanQuery, cleanLinks, cleanCapitalization} from '../util/dataCleaning'
 import SearchUnstructured from '../util/SearchUnstructured'
 import SearchStructured from '../util/SearchStructured'
 
@@ -21,7 +24,7 @@ const parseAndInsertCSV = (fileName: string) => {
 
     const profiles = output.splice(1).map((row: any) => {
       // Only insert in DB if it does not exist yet
-      console.log('create profile', row[0])
+      console.log('create profile', row[0]) 
       const profile = new Profile({
         id: row[0],
         age: row[1],
@@ -30,15 +33,15 @@ const parseAndInsertCSV = (fileName: string) => {
         education: row[4],
         ethnicity: row[5],
         height: row[6].toString(),
-        income: row[7],
         job: row[8],
         orientation: row[9],
-        pets: row[10],
         religion: row[11],
         sex: row[12],
         smokes: row[13],
         status: row[14],
-        description: cleanDescription(row[15])
+        description: cleanCapitalization(cleanDescription(row[15])),
+        descriptionOriginal: cleanCapitalization(cleanLinks(row[15])),
+        name: random_name({gender: row[12] === 'm' ? 'male' : 'female', seed: row[0]})
       })
       return profile
     })
@@ -53,12 +56,13 @@ const parseAndInsertCSV = (fileName: string) => {
  * GET /createProfiles
  * TODO describe what it does
  */
-const numberOfDocuments = 4
+const numberOfDocuments = 1
 export const createProfiles = (req: Request, res: Response) => {
-  for (let i = 0; i < numberOfDocuments; i++) {
+  for (let i = 1; i < numberOfDocuments + 1; i++) {
+    //profiles_batch_ 1  one
     const fileName = __dirname + `/../../data/profiles_batch_ ${i} .csv`
     parseAndInsertCSV(fileName)
-    if (i === numberOfDocuments - 1) {
+    if (i === numberOfDocuments) {
       return res.send({success: true})
     }
   }

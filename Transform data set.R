@@ -3,8 +3,8 @@ data_profiles = read.csv("Desktop/profiles.csv", sep = ',')
 
 # create 60 files of 1000 entries
 startIndex <- 0
-batchSize <- 1000
-for (i in 1:60) { 
+batchSize <- 1
+for (i in 1:1) { 
   # Retrieve subset of the data
   subset <- data_profiles[startIndex:(startIndex + batchSize), ]
   

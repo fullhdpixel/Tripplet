@@ -1,12 +1,30 @@
 extends layout
 
 block content
-  h1 Dating Profile Retrieval Structured
-  hr
-  form.form-horizontal(method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group.row.justify-content-md-center
-    input.form-control(type='text', name='name', id='name', placeholder='What are you looking for in a partner?', autofocus=true)
-    br
-    button.btn.btn-primary(type='submit')
-      | Search Now
+  include partials/header
+  
+  .container.pl-sm-0.pr-sm-0.pl-lg-3.pr-lg-3
+    h1 Dating Profile Retrieval Structured
+    hr
+    form(method='GET')
+      div.form-group.row
+        label.col-form-label.col-sm-2 Age
+        div.col-sm-10
+          input.form-control.col-form-label(type='number', name='age', value=25, autofocus=true, placeholder='Age')
+
+
+      div.form-group.row
+        label.col-form-label.col-sm-2 Sex
+        div.col-sm-10.pt-1
+          .form-check.form-check-inline.pt-1
+            input#option-male.form-check-input(type='radio', checked=true, name='sex', value='m', data-toggle='radio')
+            label.form-check-label(for="option-male") Male
+          .form-check.form-check-inline
+            input#option-female.form-check-input(type='radio', checked=false, name='sex', value='f', data-toggle='radio')
+            label.form-check-label(for="option-female") Female
+
+      br
+      button.btn.btn-primary(type='submit')
+        | Search Now
+
+        //- sex smokes single status

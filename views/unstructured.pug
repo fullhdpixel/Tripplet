@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  include partials/header
+
+  .container.pl-sm-0.pr-sm-0.pl-lg-3.pr-lg-3
+    div.mainScreenContainer.text-center
+      h1 Dating Profile Retrieval
+      hr
+      form.text-center.form-inline(method='GET')
+        input.flex-one.form-control(type='text', name='q', id='q', placeholder='What are you looking for in a partner?', autofocus=true)
+        button.btn.btn-primary(type='submit')
+          | Search Now

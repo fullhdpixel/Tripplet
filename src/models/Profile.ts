@@ -16,10 +16,8 @@ const profileSchema = new mongoose.Schema({
   education: String,
   ethnicity: String,
   height: String,
-  income: Number,
   job: String,
   orientation: String,
-  pets: String,
   religion: String,
   sex: String,
   smokes: String,
@@ -28,7 +26,9 @@ const profileSchema = new mongoose.Schema({
     type: String,
     // eslint-disable-next-line @typescript-eslint/camelcase
     es_indexed:true
-  }
+  },
+  descriptionOriginal: String, // Not cleaned
+  name: String
 })
 
 profileSchema.plugin(mongoosastic, {hydrate: true})
@@ -37,14 +37,14 @@ export type ProfileDocument = mongoose.Document & Profile
 export const Profile = mongoose.model<ProfileDocument>('Profile', profileSchema)
 
 // @ts-ignore all
-// const stream = Profile.synchronize()
-// let count = 0
-// stream.on('data', (err: any, doc: any) => {
-//   count++
-// })
-// stream.on('close', () => {
-//   console.log('indexed ' + count + ' documents!')
-// })
-// stream.on('error', (err: any) => {
-//   console.log(err)
-// })
+const stream = Profile.synchronize()
+let count = 0
+stream.on('data', (err: any, doc: any) => {
+  count++
+})
+stream.on('close', () => {
+  console.log('indexed ' + count + ' documents!')
+})
+stream.on('error', (err: any) => {
+  console.log(err)
+})

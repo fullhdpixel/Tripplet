@@ -1,0 +1,61 @@
+extends layout
+
+block content
+  include partials/header
+
+  .container.pl-sm-0.pr-sm-0.pl-lg-3.pr-lg-3.mt-5.pt-5
+    nav.nav.pull-left
+      a.p-0.nav-link(href='javascript:history.back()') Back to results
+
+    br
+      
+    .page-header
+      h3 #{profile.name} 
+
+    hr
+
+    div.row
+      div.col-sm-6
+        p 
+          != profile.descriptionOriginal
+
+      div.col-sm-6
+        div.card
+          div.card-header #{profile.name} 
+          ul.list-group.list-group-flush.pb-2
+            li.list-group-item
+              strong Age 
+              = profile.age
+            li.list-group-item
+              strong Gender 
+              = profile.sex === 'f' ? 'Female' : 'Male'
+            li.list-group-item
+              strong Ethnicity 
+              = profile.ethnicity
+            li.list-group-item
+              strong Education 
+              = profile.education
+            li.list-group-item
+              strong Diet 
+              = profile.diet
+            li.list-group-item
+              strong Height 
+              = profile.height + ' inches'
+            li.list-group-item
+              strong Drinks 
+              = profile.drinks
+            li.list-group-item
+              strong Job 
+              = profile.job
+            li.list-group-item
+              strong Orientation 
+              = profile.orientation
+            li.list-group-item
+              strong Religion 
+              = profile.religion
+            li.list-group-item
+              strong Smokes 
+              = profile.smokes
+            li.list-group-item
+              strong Status 
+              = profile.status
