@@ -32,7 +32,34 @@ export const structured = (req: Request, res: Response) => {
     })
   } else {
     res.render('structured', {
-      title: 'Structured'
+      title: 'Structured',
+      fields: [{
+        type: 'number',
+        name: 'age',
+        label: 'Age',
+        value: 25,
+        autoocus: true
+      },{
+        type: 'radio',
+        name: 'sex',
+        label: 'Gender',
+        options: ['Female', 'Male']
+      },{
+        type: 'select',
+        name: 'diet',
+        label: 'Diet',
+        options: ['anything', 'vegetarian', 'vegan', 'kosher', 'halal', 'other']
+      },{
+        type: 'radio',
+        name: 'orientation',
+        label: 'Orientation',
+        options: ['straight', 'gay', 'bisexual']
+      },{
+        type: 'select',
+        name: 'status',
+        label: 'Status',
+        options: ['single', 'seeing someone', 'married', 'in an open relationship']
+      }]
     })
   }
 }

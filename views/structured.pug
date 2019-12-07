@@ -2,29 +2,41 @@ extends layout
 
 block content
   include partials/header
-  
-  .container.pl-sm-0.pr-sm-0.pl-lg-3.pr-lg-3
-    h1 Dating Profile Retrieval Structured
+
+  .container.pl-sm-0.pr-sm-0.pl-lg-3.pr-lg-3.mt-5.pt-5
+    h5 Set up your search
     hr
     form(method='GET')
-      div.form-group.row
-        label.col-form-label.col-sm-2 Age
-        div.col-sm-10
-          input.form-control.col-form-label(type='number', name='age', value=25, autofocus=true, placeholder='Age')
+      each field in fields
+        if (field.type === 'number')
+          div.form-group.row
+            label.col-form-label.col-sm-2 #{field.label}
+            div.col-sm-10
+              input.form-control.col-form-label(type='number', name=field.name, value=field.value, autofocus=field.autofocus, placeholder=field.label)
 
+        else if (field.type === 'radio')
+          div.form-group.row
+            label.col-form-label.col-sm-2 #{field.label}
+            div.col-sm-10.pt-1
+              each option, index in field.options
+                .form-check.form-check-inline
+                  if (index === 0) 
+                    input.form-check-input(id=option, type='radio', checked=true, name=field.name, value={option}, data-toggle='radio')
+                  else 
+                    input.form-check-input(id=option, type='radio', checked=false, name=field.name, value={option}, data-toggle='radio')
 
-      div.form-group.row
-        label.col-form-label.col-sm-2 Sex
-        div.col-sm-10.pt-1
-          .form-check.form-check-inline.pt-1
-            input#option-male.form-check-input(type='radio', checked=true, name='sex', value='m', data-toggle='radio')
-            label.form-check-label(for="option-male") Male
-          .form-check.form-check-inline
-            input#option-female.form-check-input(type='radio', checked=false, name='sex', value='f', data-toggle='radio')
-            label.form-check-label(for="option-female") Female
+                  label.form-check-label(for=option) #{option}
+
+        else if (field.type === 'select')
+          div.form-group.row
+            label.col-form-label.col-sm-2 #{field.label}
+            div.col-sm-10
+              select.form-control(name=field.name)
+                each option in field.options
+                  option(value=option) #{option}
 
       br
       button.btn.btn-primary(type='submit')
         | Search Now
 
-        //- sex smokes single status
+//- smokes single status
