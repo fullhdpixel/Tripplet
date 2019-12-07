@@ -10,18 +10,31 @@ import StructuredFields from '../util/StructuredFields'
  * Search page
  */
 export const structured = (req: Request, res: Response) => {
-  console.log(req.query.age)
   if (req.query && Object.values(req.query).length > 0) {
     const startDate = new Date()
 
     const query = {}
     Object.entries(req.query).forEach(queryItem => {
+      const key = queryItem[0]
+      let value: any = queryItem[1]
+
+      if (value === '-') {
+        return
+      }
+      if (key === 'sex') {
+        value = value === 'Female' ? 'f' : 'm'
+      } else if (key === 'age' || key === 'height') {
+        value = { $gt: parseInt(value) }
+      } else if (key === 'diet' || key === 'ethnicity' || key === 'education') {
+        value = {$regex : `.*${value}.*`}
+      }
       //@ts-ignore all
-      query[queryItem[0]] = queryItem[1]
+      query[key] = value
     })
 
-    // TODO type check query
+    console.log(query)
 
+    // TODO type check query
     SearchStructured(query, (profiles: ProfileDocument[]) => {
       const endDate = new Date()
       const seconds = (endDate.getTime() - startDate.getTime()) / 1000

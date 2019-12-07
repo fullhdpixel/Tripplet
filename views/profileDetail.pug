@@ -59,3 +59,7 @@ block content
             li.list-group-item
               strong Status 
               = profile.status
+          div.card-footer
+            a.card-link.pl-0(href=`/profile/${profile._id}`)
+              i.fa.fa-heart
+              = 'Mark as relevant'

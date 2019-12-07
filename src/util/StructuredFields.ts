@@ -13,7 +13,7 @@ export default [{
   type: 'select',
   name: 'diet',
   label: 'Diet',
-  options: ['anything', 'vegetarian', 'vegan', 'kosher', 'halal', 'other']
+  options: ['-', 'anything', 'vegetarian', 'vegan', 'kosher', 'halal', 'other']
 },{
   type: 'radio',
   name: 'orientation',
@@ -23,27 +23,32 @@ export default [{
   type: 'select',
   name: 'status',
   label: 'Status',
-  options: ['single', 'seeing someone', 'married', 'in an open relationship']
+  options: ['-', 'single', 'seeing someone', 'married', 'in an open relationship']
 },{
   type: 'select',
   name: 'smokes',
   label: 'Smokes',
-  options: ['no', 'yes', 'sometimes', 'when drinking', 'trying to quit']
+  options: ['-', 'no', 'yes', 'sometimes', 'when drinking', 'trying to quit']
 },{
   type: 'select',
   name: 'drinks',
   label: 'Drinks',
-  options: ['socially', 'very often', 'often', 'rarely', 'desperately', 'not at all']
+  options: ['-', 'socially', 'very often', 'often', 'rarely', 'desperately', 'not at all']
 },{
   type: 'select',
   name: 'ethnicity',
   label: 'Ethnicity',
-  options: ['asian', 'middle eastern', 'black', 'native american', 'indian', 'pacific islander', 'hispanic/latin', 'white', 'other']
+  options: ['-', 'asian', 'middle eastern', 'black', 'native american', 'indian', 'pacific islander', 'hispanic/latin', 'white', 'other']
 },{
   type: 'number',
   name: 'height',
   label: 'Min. Height (Inches)',
-  value: 50,
+  value: 0,
+},{
+  type: 'select',
+  name: 'education',
+  label: 'Education',
+  options: ['-', 'high school', 'two-year college', 'university', 'masters program', 'law school', 'med school', 'Ph.D program', 'space camp'],
 },{
   type: 'select',
   name: 'job',

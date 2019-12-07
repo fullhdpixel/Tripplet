@@ -21,9 +21,9 @@ block content
               each option, index in field.options
                 .form-check.form-check-inline
                   if (index === 0) 
-                    input.form-check-input(id=option, type='radio', checked=true, name=field.name, value={option}, data-toggle='radio')
+                    input.form-check-input(id=option, type='radio', checked=true, name=field.name, value=option, data-toggle='radio')
                   else 
-                    input.form-check-input(id=option, type='radio', checked=false, name=field.name, value={option}, data-toggle='radio')
+                    input.form-check-input(id=option, type='radio', checked=false, name=field.name, value=option, data-toggle='radio')
 
                   label.form-check-label(for=option) #{option}
 
