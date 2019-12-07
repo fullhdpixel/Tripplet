@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import { ProfileDocument, Profile } from '../models/Profile'
 import SearchUnstructured from '../util/SearchUnstructured'
 import SearchStructured from '../util/SearchStructured'
+import StructuredFields from '../util/StructuredFields'
 
 /**
  * GET /
@@ -33,33 +34,7 @@ export const structured = (req: Request, res: Response) => {
   } else {
     res.render('structured', {
       title: 'Structured',
-      fields: [{
-        type: 'number',
-        name: 'age',
-        label: 'Age',
-        value: 25,
-        autoocus: true
-      },{
-        type: 'radio',
-        name: 'sex',
-        label: 'Gender',
-        options: ['Female', 'Male']
-      },{
-        type: 'select',
-        name: 'diet',
-        label: 'Diet',
-        options: ['anything', 'vegetarian', 'vegan', 'kosher', 'halal', 'other']
-      },{
-        type: 'radio',
-        name: 'orientation',
-        label: 'Orientation',
-        options: ['straight', 'gay', 'bisexual']
-      },{
-        type: 'select',
-        name: 'status',
-        label: 'Status',
-        options: ['single', 'seeing someone', 'married', 'in an open relationship']
-      }]
+      fields: StructuredFields
     })
   }
 }
