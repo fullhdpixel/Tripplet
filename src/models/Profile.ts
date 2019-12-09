@@ -29,7 +29,7 @@ const profileSchema = new mongoose.Schema({
   },
   descriptionOriginal: String, // Not cleaned
   name: String
-})
+}, {timestamps: true})
 
 profileSchema.plugin(mongoosastic, {hydrate: true})
 

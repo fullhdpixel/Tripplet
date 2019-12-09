@@ -1,3 +1,4 @@
+import { Query, QueryDocument } from '../models/Query'
 import { Profile, ProfileDocument } from '../models/Profile'
 
 const boldString = (str: string, find: string) => {
@@ -8,6 +9,12 @@ const boldString = (str: string, find: string) => {
 
 // Hydrate: true (adds mongodb entry) but loses relevancy score
 const SearchUnstructured = (query: string, callback: Function) => {
+  const newQuery = new Query({
+    query,
+    filters: null
+  })
+  newQuery.save()
+  
   // @ts-ignore all
   // eslint-disable-next-line @typescript-eslint/camelcase
   Profile.search({query_string: {query}}, {hydrate: true}, (err: any, profiles: any) => {

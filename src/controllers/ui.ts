@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import moment from 'moment'
 
 import { ProfileDocument, Profile } from '../models/Profile'
 import SearchUnstructured from '../util/SearchUnstructured'
@@ -13,7 +14,7 @@ export const structured = (req: Request, res: Response) => {
   if (req.query && Object.values(req.query).length > 0) {
     const startDate = new Date()
 
-    const query = {}
+    const filters = {}
     Object.entries(req.query).forEach(queryItem => {
       const key = queryItem[0]
       let value: any = queryItem[1]
@@ -29,16 +30,14 @@ export const structured = (req: Request, res: Response) => {
         value = {$regex : `.*${value}.*`}
       }
       //@ts-ignore all
-      query[key] = value
+      filters[key] = value
     })
 
-    console.log(query)
-
-    // TODO type check query
-    SearchStructured(query, (profiles: ProfileDocument[]) => {
+    // TODO type check filters
+    SearchStructured(filters, (profiles: ProfileDocument[]) => {
       const endDate = new Date()
       const seconds = (endDate.getTime() - startDate.getTime()) / 1000
-      
+
       return res.render('results', {
         profiles,
         seconds
@@ -88,9 +87,14 @@ export const getProfileDetail = (req: Request, res: Response) => {
     if (err || !profile) {
       return res.redirect('/')
     } else {
+      // @ts-ignore all
+      const indexedTime = moment(profile.createdAt).format('HH:mm DD-MM-YYYY')
+      console.log(profile.name, indexedTime)
+
       return res.render('profileDetail', {
-        title: 'Profile of name',
-        profile
+        title: `Profile of ${profile.name}`,
+        profile,
+        indexedTime
       })
     }
   })

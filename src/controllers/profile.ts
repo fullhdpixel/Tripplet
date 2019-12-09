@@ -59,11 +59,10 @@ const parseAndInsertCSV = (fileName: string) => {
 const numberOfDocuments = 1
 export const createProfiles = (req: Request, res: Response) => {
   for (let i = 1; i < numberOfDocuments + 1; i++) {
-    //profiles_batch_ 1  one
     const fileName = __dirname + `/../../data/profiles_batch_ ${i} .csv`
     parseAndInsertCSV(fileName)
     if (i === numberOfDocuments) {
-      return res.send({success: true})
+      return res.send({success: true})   
     }
   }
 }
