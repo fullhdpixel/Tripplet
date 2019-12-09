@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import mongoose from 'mongoose'
 // @ts-ignore all
 import mongoosastic from 'mongoosastic'
@@ -10,28 +11,62 @@ const profileSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  age: Number,
-  diet: String,
-  drinks: String,
-  education: String,
-  ethnicity: String,
-  height: String,
-  job: String,
-  orientation: String,
-  religion: String,
-  sex: String,
-  smokes: String,
-  status: String,
+  age: {
+    type: Number,
+    es_indexed:true
+  },
+  diet: {
+    type: String,
+    es_indexed:true
+  },
+  drinks: {
+    type: String,
+    es_indexed:true
+  },
+  education: {
+    type: String,
+    es_indexed:true
+  },
+  ethnicity: {
+    type: String,
+    es_indexed:true
+  },
+  height: {
+    type: String,
+    es_indexed:true
+  },
+  job: {
+    type: String,
+    es_indexed:true
+  },
+  orientation: {
+    type: String,
+    es_indexed:true
+  },
+  religion: {
+    type: String,
+    es_indexed:true
+  },
+  sex: {
+    type: String,
+    es_indexed:true
+  },
+  smokes: {
+    type: String,
+    es_indexed:true
+  },
+  status: {
+    type: String,
+    es_indexed:true
+  },
   description: {
     type: String,
-    // eslint-disable-next-line @typescript-eslint/camelcase
     es_indexed:true
   },
   descriptionOriginal: String, // Not cleaned
   name: String
 }, {timestamps: true})
 
-// Index everything
 profileSchema.plugin(mongoosastic, {hydrate: true})
 
 export type ProfileDocument = mongoose.Document & Profile

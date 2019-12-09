@@ -8,16 +8,21 @@ const boldString = (word: string, text: string) => {
   return text.replace(regexp, replaceMask)
 }
 
-const makeBold = (query: string, profiles: ProfileDocument[]) => profiles.map(profile => {
-  const transformedProfile = profile
+const makeBold = (query: string, profiles: ProfileDocument[]) => {
+  if (!query || query.length === 0) {
+    return profiles
+  }
+  return profiles.map(profile => { 
+    const transformedProfile = profile
 
-  let newDescription = profile.descriptionOriginal.length > 50 ? profile.descriptionOriginal.substring(0, 500) + '...' : profile.descriptionOriginal
+    let newDescription = profile.descriptionOriginal.length > 50 ? profile.descriptionOriginal.substring(0, 500) + '...' : profile.descriptionOriginal
 
-  query.split(' ').filter(queryWord => queryWord.length > 3).forEach(queryWord => {
-    newDescription = boldString(queryWord, newDescription)
+    query.split(' ').filter(queryWord => queryWord.length > 3).forEach(queryWord => {
+      newDescription = boldString(queryWord, newDescription)
+    })
+    transformedProfile['descriptionOriginal'] = newDescription
+    return transformedProfile
   })
-  transformedProfile['descriptionOriginal'] = newDescription
-  return transformedProfile
-})
+}
 
 export default makeBold

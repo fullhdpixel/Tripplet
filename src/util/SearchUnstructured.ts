@@ -14,13 +14,11 @@ const SearchUnstructured = (query: string, ipAddress: string, callback: Function
   // @ts-ignore all
   // eslint-disable-next-line @typescript-eslint/camelcase
   Profile.search({query_string: {query}}, {hydrate: true}, (err: any, dbResults: any) => {
-    const profiles: ProfileDocument[] = dbResults.hits.hits
-
-    if (!profiles || profiles.length === 0) {
-      callback([])
-    } else {
-      callback(makeBold(query, profiles))
+    if (err || !dbResults) {
+      return callback([])
     }
+    const profiles: ProfileDocument[] = dbResults.hits.hits
+    callback(makeBold(query, profiles))
   })
 }
 

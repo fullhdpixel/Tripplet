@@ -13,26 +13,23 @@ const SearchUnstructuredFilters = (filters: any, ipAddress: string, callback: Fu
   const query = filters.q
   delete filters.q
 
-  const mongoTextQuery = query && query.length > 0 ? { $text: { $search: query } } : {}
+  const elasticQuery = {
+    'query' : {
+      'match' : {
+        'sex' : 'f'
+      }
+    }
+  }
 
-  console.log(mongoTextQuery)
   // @ts-ignore all
   // eslint-disable-next-line @typescript-eslint/camelcase
-  Profile.find({...filters, ...mongoTextQuery}, {}, {limit: 10}, (err: any, profiles: ProfileDocument[]) => {
-    // const profiles: ProfileDocument[] = dbResults.hits.hits
-    
-    if (!profiles || profiles.length === 0) {
-      callback([])
-    } else {
-      callback(makeBold(query, profiles))
+  Profile.esSearch({query_string: {query}, ...elasticQuery}, {hydrate: true, size: 10}, (err: any, dbResults: any) => {
+    if (err || !dbResults) {
+      return callback([])
     }
+    const profiles: ProfileDocument[] = dbResults.hits.hits
+    callback(makeBold(query, profiles))
   })
-
-  // // @ts-ignore all
-  // // eslint-disable-next-line @typescript-eslint/camelcase
-  // Profile.find({...filters}, {}, {limit: 10}, (err: any, profiles: ProfileDocument[]) => {
-  //   callback(profiles)
-  // })
 }
 
 export default SearchUnstructuredFilters

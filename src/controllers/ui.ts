@@ -71,7 +71,7 @@ export const unstructuredFilters = (req: Request, res: Response) => {
       const seconds = (endDate.getTime() - startDate.getTime()) / 1000
 
       return res.render('results', {
-        profiles,
+        profiles: profiles,
         seconds
       })
     })
