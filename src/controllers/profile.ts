@@ -1,5 +1,6 @@
 import fs from 'fs'
 import {Request, Response} from 'express'
+import requestIp from 'request-ip'
 // import { Client } from '@elastic/elasticsearch'
 import parse from 'csv-parse'
 // @ts-ignore all
@@ -74,7 +75,8 @@ export const createProfiles = (req: Request, res: Response) => {
 export const searchProfiles = (req: Request, res: Response) => {
   const query = cleanQuery(req.body.query)
 
-  SearchUnstructured(query, (profiles: ProfileDocument[]) => {
+  const ipAddress = requestIp.getClientIp(req)
+  SearchUnstructured(query, ipAddress, (profiles: ProfileDocument[]) => {
     return res.send({profiles})
   })
 }
@@ -86,7 +88,8 @@ export const searchProfiles = (req: Request, res: Response) => {
 export const findProfiles = (req: Request, res: Response) => {
   const query = req.body.query
 
-  SearchStructured(query, (profiles: ProfileDocument[]) => {
+  const ipAddress = requestIp.getClientIp(req)
+  SearchStructured(query, ipAddress, (profiles: ProfileDocument[]) => {
     return res.send({profiles})
   })
 }

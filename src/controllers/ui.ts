@@ -1,10 +1,12 @@
 import { Request, Response } from 'express'
 import moment from 'moment'
+import requestIp from 'request-ip'
 
 import { ProfileDocument, Profile } from '../models/Profile'
 import SearchUnstructured from '../util/SearchUnstructured'
 import SearchStructured from '../util/SearchStructured'
 import StructuredFields from '../util/StructuredFields'
+import { Query, QueryDocument } from '../models/Query'
 
 /**
  * GET /
@@ -34,7 +36,8 @@ export const structured = (req: Request, res: Response) => {
     })
 
     // TODO type check filters
-    SearchStructured(filters, (profiles: ProfileDocument[]) => {
+    const ipAddress = requestIp.getClientIp(req)
+    SearchStructured(filters, ipAddress, (profiles: ProfileDocument[]) => {
       const endDate = new Date()
       const seconds = (endDate.getTime() - startDate.getTime()) / 1000
 
@@ -60,7 +63,9 @@ export const unstructured = (req: Request, res: Response) => {
     const startDate = new Date()
 
     const query = req.query.q
-    SearchUnstructured(query, (profiles: ProfileDocument[]) => {
+    const ipAddress = requestIp.getClientIp(req)
+
+    SearchUnstructured(query, ipAddress, (profiles: ProfileDocument[]) => {
       const endDate = new Date()
       const seconds = (endDate.getTime() - startDate.getTime()) / 1000
 
@@ -89,7 +94,6 @@ export const getProfileDetail = (req: Request, res: Response) => {
     } else {
       // @ts-ignore all
       const indexedTime = moment(profile.createdAt).format('HH:mm DD-MM-YYYY')
-      console.log(profile.name, indexedTime)
 
       return res.render('profileDetail', {
         title: `Profile of ${profile.name}`,
@@ -97,5 +101,26 @@ export const getProfileDetail = (req: Request, res: Response) => {
         indexedTime
       })
     }
+  })
+}
+
+/**
+ * GET /profile/:id
+ * Profile Detail page
+ */
+export const redirectInterest = (req: Request, res: Response) => {
+  const interest = req.query.i
+  return res.redirect(`/?q=${interest}`)
+}
+
+/**
+ * GET /queries
+ * Returns all queries
+ */
+export const getQueries = (req: Request, res: Response) => {
+  Query.find({}, (err: any, queries: QueryDocument[]) => {
+    return res.render('queries', {
+      queries
+    })
   })
 }

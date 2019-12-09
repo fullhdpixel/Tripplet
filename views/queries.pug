@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  include partials/header
+
+  .container.pl-sm-0.pr-sm-0.pl-lg-3.pr-lg-3.mt-5.pt-5
+    .page-header
+      h3 #{queries.length} Queries 
+
+      br
+
+      table.table
+        thead
+          tr
+            th Query
+            th Filters
+            th IP Address
+        tbody
+          each query in queries
+            tr
+              th #{query.query}
+              th #{query.filters}
+              th #{query.ipAddress}

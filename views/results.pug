@@ -19,7 +19,7 @@ block content
                   small #{profile.age}
                 h6.card-subtitle.mb-2.text-muted 
                 p.card-text
-                  != profile.descriptionOriginal.length > 50 ? profile.descriptionOriginal.substring(0, 500) + '...' : profile.descriptionOriginal
+                  != profile.descriptionOriginal
 
                 br
                 a.card-link.pl-0(href=`/profile/${profile._id}`) View Profile

@@ -70,12 +70,11 @@ app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}))
 /**
  * View routes.
  */
-
 app.get('/', uiController.unstructured)
 app.get('/structured', uiController.structured)
 app.get('/profile/:id', uiController.getProfileDetail)
-
-// app.get('/signup', userController.getSignup)
+app.get('/interests', uiController.redirectInterest)
+app.get('/queries', uiController.getQueries)
 
 /**
  * API routes.

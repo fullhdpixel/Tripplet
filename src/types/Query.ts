@@ -1,6 +1,7 @@
 interface Query {
   query: string,
-  filters: any
+  filters: any,
+  ipAddress: string
 }
 
 export default Query

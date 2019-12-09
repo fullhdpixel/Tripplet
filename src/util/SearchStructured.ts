@@ -1,10 +1,11 @@
-import { Query, QueryDocument } from '../models/Query'
+import { Query } from '../models/Query'
 import { Profile, ProfileDocument } from '../models/Profile'
 
-const SearchStructured = (filters: object, callback: Function) => {
+const SearchStructured = (filters: object, ipAddress: string, callback: Function) => {
   const newQuery = new Query({
     query: '',
-    filters: JSON.stringify(filters) 
+    filters: JSON.stringify(filters),
+    ipAddress
   })
   newQuery.save()
 
