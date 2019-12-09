@@ -31,6 +31,7 @@ const profileSchema = new mongoose.Schema({
   name: String
 }, {timestamps: true})
 
+// Index everything
 profileSchema.plugin(mongoosastic, {hydrate: true})
 
 export type ProfileDocument = mongoose.Document & Profile

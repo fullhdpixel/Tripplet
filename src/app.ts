@@ -71,7 +71,7 @@ app.use(express.static(path.join(__dirname, 'public'), {maxAge: 31557600000}))
  * View routes.
  */
 app.get('/', uiController.unstructured)
-app.get('/structured', uiController.structured)
+app.get('/filters', uiController.unstructuredFilters)
 app.get('/profile/:id', uiController.getProfileDetail)
 app.get('/interests', uiController.redirectInterest)
 app.get('/queries', uiController.getQueries)
@@ -81,7 +81,6 @@ app.get('/queries', uiController.getQueries)
  */
 app.get('/createprofiles', profileController.createProfiles)
 app.post('/search', unstructuredValidationRules(), validateMiddleware, profileController.searchProfiles)
-
 app.post('/find', structuredValidationRules(), validateMiddleware, profileController.findProfiles)
 app.delete('/profiles', profileController.deleteProfiles)
 

@@ -21,7 +21,5 @@ mkdir -p ~/data/db
 mongod --dbpath ~/data/db
 
 ## Deployment (TODO)
-
-Be sure you change the write queue to 1000
 1. Add unstructured to page (page a / b)
 2. Deploy to digitalocean

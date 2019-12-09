@@ -1,9 +1,9 @@
 import {check} from 'express-validator'
 
 export const unstructuredValidationRules = () => [
-  check('query').exists().custom(query => true)
+  check('query').exists()
 ]
 
 export const structuredValidationRules = () => [
-  check('query').exists().custom(query => true)
+  check('filters').exists()
 ]

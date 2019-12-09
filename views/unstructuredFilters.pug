@@ -3,10 +3,14 @@ extends layout
 block content
   include partials/header
 
+
   .container.pl-sm-0.pr-sm-0.pl-lg-3.pr-lg-3.mt-5.pt-5
     h5 Set up your search
-    hr
     form(method='GET')
+      div.form-group
+        input.flex-one.form-control(type='text', name='q', id='q', placeholder='What are you looking for in a partner?', autofocus=true)
+      hr
+      p.text-muted Additional Filters
       each field in fields
         if (field.type === 'number')
           div.form-group.row

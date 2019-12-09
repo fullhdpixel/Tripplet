@@ -10,7 +10,7 @@ import random_name from 'node-random-name'
 import {Profile, ProfileDocument} from '../models/Profile'
 import {cleanDescription, cleanQuery, cleanLinks, cleanCapitalization} from '../util/dataCleaning'
 import SearchUnstructured from '../util/SearchUnstructured'
-import SearchStructured from '../util/SearchStructured'
+import SearchUnstructuredFilters from '../util/SearchUnstructuredFilters'
 
 // const client = new Client({ node: 'http://localhost:9200' })
 
@@ -86,10 +86,10 @@ export const searchProfiles = (req: Request, res: Response) => {
  * Structured query for Profiles
  */
 export const findProfiles = (req: Request, res: Response) => {
-  const query = req.body.query
+  const filters = req.body.filters
 
   const ipAddress = requestIp.getClientIp(req)
-  SearchStructured(query, ipAddress, (profiles: ProfileDocument[]) => {
+  SearchUnstructuredFilters(filters, ipAddress, (profiles: ProfileDocument[]) => {
     return res.send({profiles})
   })
 }
