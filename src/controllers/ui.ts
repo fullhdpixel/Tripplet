@@ -7,6 +7,7 @@ import SearchUnstructured from '../util/SearchUnstructured'
 import SearchUnstructuredFilters from '../util/SearchUnstructuredFilters'
 import StructuredFields from '../util/StructuredFields'
 import { Query, QueryDocument } from '../models/Query'
+import { cleanDescription } from '../util/dataCleaning'
 
 /**
  * GET /
@@ -56,9 +57,9 @@ export const unstructuredFilters = (req: Request, res: Response) => {
       if (key === 'sex') {
         value = value === 'Female' ? 'f' : 'm'
       } else if (key === 'age' || key === 'height') {
-        value = { $gte: parseInt(value) }
+        value = parseInt(value)
       } else if (key === 'diet' || key === 'ethnicity' || key === 'education') {
-        value = {$regex : `.*${value}.*`}
+        value = value
       }
       //@ts-ignore all
       filters[key] = value
@@ -71,7 +72,7 @@ export const unstructuredFilters = (req: Request, res: Response) => {
       const seconds = (endDate.getTime() - startDate.getTime()) / 1000
 
       return res.render('results', {
-        profiles: profiles,
+        profiles,
         seconds
       })
     })
@@ -120,7 +121,9 @@ export const redirectInterest = (req: Request, res: Response) => {
  * Returns all queries
  */
 export const getQueries = (req: Request, res: Response) => {
-  Query.find({}, (err: any, queries: QueryDocument[]) => {
+  Query.find({}, {}, {sort: {
+    createdAt: -1
+  }}, (err: any, queries: QueryDocument[]) => {
     return res.render('queries', {
       queries
     })

@@ -73,14 +73,14 @@ export type ProfileDocument = mongoose.Document & Profile
 export const Profile = mongoose.model<ProfileDocument>('Profile', profileSchema)
 
 // @ts-ignore all
-const stream = Profile.synchronize()
-let count = 0
-stream.on('data', (err: any, doc: any) => {
-  count++
-})
-stream.on('close', () => {
-  console.log('indexed ' + count + ' documents!')
-})
-stream.on('error', (err: any) => {
-  console.log(err)
-})
+// const stream = Profile.synchronize()
+// let count = 0
+// stream.on('data', (err: any, doc: any) => {
+//   count++
+// })
+// stream.on('close', () => {
+//   console.log('indexed ' + count + ' documents!')
+// })
+// stream.on('error', (err: any) => {
+//   console.log(err)
+// })
