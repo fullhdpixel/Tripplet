@@ -126,7 +126,9 @@ export const getQueries = (req: Request, res: Response) => {
   }}, (err: any, queries: QueryDocument[]) => {
 
     const result = queries.map(query => ({
-      ...query,
+      filters: query.filters,
+      ipAddress: query.ipAddress,
+      query: query.query,
       ['timestamp']: moment(query.createdAt).format('DD-MM-YYYY HH:mm')
     }))
 
