@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import fs from 'fs'
 import {Request, Response} from 'express'
 import requestIp from 'request-ip'

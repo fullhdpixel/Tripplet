@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import {Request, Response, NextFunction} from 'express'
 import {validationResult, ValidationError} from 'express-validator'
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import StructuredFields from './StructuredFields'
 
 const generateElasticFilters = (query: string, filters: any) => {

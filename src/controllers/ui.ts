@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import { Request, Response } from 'express'
 import moment from 'moment'
 import requestIp from 'request-ip'
@@ -7,7 +8,6 @@ import SearchUnstructured from '../util/SearchUnstructured'
 import SearchUnstructuredFilters from '../util/SearchUnstructuredFilters'
 import StructuredFields from '../util/StructuredFields'
 import { Query, QueryDocument } from '../models/Query'
-import { cleanDescription } from '../util/dataCleaning'
 
 /**
  * GET /
@@ -124,8 +124,14 @@ export const getQueries = (req: Request, res: Response) => {
   Query.find({}, {}, {sort: {
     createdAt: -1
   }}, (err: any, queries: QueryDocument[]) => {
+
+    const result = queries.map(query => ({
+      ...query,
+      ['timestamp']: moment(query.createdAt).format('DD-MM-YYYY HH:mm')
+    }))
+
     return res.render('queries', {
-      queries
+      queries: result
     })
   })
 }

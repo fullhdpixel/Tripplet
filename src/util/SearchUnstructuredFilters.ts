@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import { Query } from '../models/Query'
 import { Profile, ProfileDocument } from '../models/Profile'
 import makeBold from './makeBold'

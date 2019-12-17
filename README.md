@@ -20,6 +20,15 @@ mkdir -p ~/data/db
 
 mongod --dbpath ~/data/db
 
+## Start mongodb on server
+mongod --fork --dbpath ~/data/db --syslog
+
 ## Deployment (TODO)
-1. Add unstructured to page (page a / b)
-2. Deploy to digitalocean
+1. Deploy to digitalocean
+
+192.81.223.34
+192.81.223.34:4000
+sudo systemctl start elasticsearch.service
+sudo nano /etc/elasticsearch/elasticsearch.yml
+
+sudo chmod -R 757 /usr/share/elasticsearch/

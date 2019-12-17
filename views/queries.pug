@@ -12,12 +12,14 @@ block content
       table.table
         thead
           tr
+            th Timestamp
             th Query
             th Filters
             th IP Address
         tbody
           each query in queries
             tr
+              th #{query.timestamp}
               th #{query.query}
               th #{query.filters}
               th #{query.ipAddress}
